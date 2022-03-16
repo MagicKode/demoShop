@@ -20,14 +20,16 @@
 
 <#list products as product>
     <div>
-        <p><b>${product.title}</b>${product.price}rub | <a href="/product/${product.id}">Details...</a></p>
+        <p><b>${product.title}</b>
+            <<#--b><img src="/images/${images.get(true)}" height="60px"/><b>-->
+            <#--поместить Превьюшную фотку каждого продукта на начальную страницу!!!-->
+            <br>${product.price} rub | <a href="/product/${product.id}">Details ></a></p>
     </div>
 <#else>
     <h3>No products...</h3>
 </#list>
 <hr>
 <form action="/product/create" method="get">
-    <#--<input type="hidden" name="_csrf" value="${_csrf.token}">-->
     <input type="submit" value="Create Product"/>
 </form>
 </body>

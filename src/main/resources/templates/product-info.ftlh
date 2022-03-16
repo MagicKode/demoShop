@@ -24,7 +24,7 @@
 <b>Product Description: </b>${product.description}<br>
 <b>Product Price: </b>${product.price}<br>
 <b>Product City: </b>${product.city}<br>
-<b>Product Author: </b>${product.author}<br>
+<b>Product Author: </b>${product.author}<br> <#--сделать SELECT юзера, который создаёт (по имени)!!-->
 <br>
 <br>
 <form action="/product/delete/${product.id}" method="post">
