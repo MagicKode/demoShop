@@ -1,5 +1,5 @@
 # demoShop
-
+  Used technology:
 Spring boot
 Srping Security
 JPA
