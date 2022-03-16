@@ -18,13 +18,13 @@ public class UserService implements UserServiceInterface {
 
 
     public boolean createUser(User user) {
-        String email = user.getEmail();
-        if (userRepository.findByEmail(user.getEmail()) != null)
+        String login = user.getLogin();
+        if (userRepository.findByLogin(user.getLogin()) != null)
             return false;
         user.setActive(true);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.getRoles().add(Role.ROLE_USER);
-        log.info("Saving new User with email: {}", email);
+        log.info("Saving new User with login: {}", login);
         userRepository.save(user);
         return true;
     }

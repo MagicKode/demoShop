@@ -29,6 +29,7 @@
     Image3: <label><input type="file" name="file3"/></label><br><br>
     Image4: <label><input type="file" name="file4"/></label><br><br>
     <br>
+    <input type="hidden" name="_csrf" value="${_csrf.token}">
     <input type="submit" value="Add product"/>
 </form>
 </body>
