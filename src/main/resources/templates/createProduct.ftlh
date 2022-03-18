@@ -22,8 +22,8 @@
     <br>
     Product city: <label><input type="text" name="city"></label><br>
     <br>
-    Product author: <label><input type="text" name="author"></label><br>
-    <br>
+    <#--Product author: <label><input type="text" name="author"></label><br>
+    <br>-->
     Image1: <label><input type="file" name="file1"/></label><br><br>
     Image2: <label><input type="file" name="file2"/></label><br><br>
     Image3: <label><input type="file" name="file3"/></label><br><br>

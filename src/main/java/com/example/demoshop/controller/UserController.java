@@ -27,7 +27,7 @@ public class UserController {
     @PostMapping("/registration")   //принимаем  user , сохраняем его и редиректим на формочку регистрации
     public String createUser(User user, Model model) {
         if (!userService.createUser(user)) {
-            model.addAttribute("errorMessage", "User with SUCH email: "
+            model.addAttribute("errorMessage", "User with SUCH login: "
                     + user.getLogin() + "exist! ");
             return "registration";
         }

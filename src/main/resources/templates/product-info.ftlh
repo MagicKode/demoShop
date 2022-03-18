@@ -24,13 +24,16 @@
 <b>Product Description: </b>${product.description}<br>
 <b>Product Price: </b>${product.price}<br>
 <b>Product City: </b>${product.city}<br>
-<b>Product Author: </b>${product.author}<br> <#--сделать SELECT юзера, который создаёт (по имени)!!-->
+<b>Product Author: </b>${product.user.name}<br><#--сделать SELECT юзера, который создаёт (по имени)!!--<#--author.-->
+<b>Author Phone number: </b>${product.user.phoneNumber}<br>
 <br>
 <br>
-<form action="/product/delete/${product.id}" method="post">
-    <input type="hidden" name="_csrf" value="${_csrf.token}">
-    <input type="submit" value="DELETE Product"/><br>
-</form>
+<#if product.user.login??>
+    <form action="/product/delete/${product.id}" method="post">
+        <input type="hidden" name="_csrf" value="${_csrf.token}">
+        <input type="submit" value="DELETE Product"/><br>
+    </form>
+</#if>
 </body>
 
 
