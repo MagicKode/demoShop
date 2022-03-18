@@ -26,11 +26,11 @@ public class Product {
     @Column(name = "description", columnDefinition = "text")
     private String description;
     @Column(name = "price")
-    private int price;
+    private double price;
     @Column(name = "city")
     private String city;
-    /*@Column(name = "author") надо удалить, ибо Автор - это Юзер, но закоментим, ибо нужно делать SELECT!!
-    private String author;*/
+    @Column(name = "manufacturer")
+    private String manufacturer; // нужно делать SELECT!!
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "product")
     private List<Image> images = new ArrayList<>();

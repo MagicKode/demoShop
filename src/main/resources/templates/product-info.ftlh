@@ -24,6 +24,7 @@
 <b>Product Description: </b>${product.description}<br>
 <b>Product Price: </b>${product.price}<br>
 <b>Product City: </b>${product.city}<br>
+<b>Manufacturer: </b>${product.manufacturer}<br> <#--добавим Производителя продукта-->
 <b>Product Author: </b>${product.user.name}<br><#--сделать SELECT юзера, который создаёт (по имени)!!--<#--author.-->
 <b>Author Phone number: </b>${product.user.phoneNumber}<br>
 <br>
