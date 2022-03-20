@@ -29,7 +29,7 @@ public class UserController {
     public String createUser(User user, Model model) {
         if (!userService.createUser(user)) {
             model.addAttribute("errorMessage", "User with SUCH login: "
-                    + user.getLogin() + "exist! ");
+                    + user.getLogin() + "exist!");
             return "registration";
         }
         return "redirect:/login";

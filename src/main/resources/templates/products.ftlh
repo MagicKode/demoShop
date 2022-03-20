@@ -5,7 +5,7 @@
     <title>demoShop</title>
 </head>
 <body>
-<h1>demoShop:</h1><hr>
+<h1>demoShop: </h1>
 
 <#if user.login??>
     <h3>Username: <i>${user.name}</i></h3>
@@ -13,12 +13,14 @@
         <input type="hidden" name="_csrf" value="${_csrf.token}">
         <input type="submit" value="Exit"/>
     </form>
+    <#if user.isAdmin()>
+        <a href="/admin">Admin panel</a><hr>
+    </#if>
 <#else>
 <form action="/login" method="post">
     <input type="hidden" name="_csrf" value="${_csrf.token}">
     <input type="submit" value="Enter"/>
 </form>
-   <#-- <a href="/login">Enter</a>-->
 </#if>
 <hr>
 <h3>Products from all country</h3>
