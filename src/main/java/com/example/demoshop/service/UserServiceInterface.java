@@ -16,5 +16,4 @@ public interface UserServiceInterface {
 
     void userBan(@PathVariable("id") Long id);
 
-
 }

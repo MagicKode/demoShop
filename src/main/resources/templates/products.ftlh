@@ -13,6 +13,7 @@
         <input type="hidden" name="_csrf" value="${_csrf.token}">
         <input type="submit" value="Exit"/>
     </form>
+    <br>
     <#if user.isAdmin()>
         <a href="/admin">Admin panel</a><hr>
     </#if>
@@ -32,7 +33,7 @@
 <#list products as product>
     <div>
         <p><b>${product.title}</b>
-            <<#--b><img src="/images/${images.get(true)}" height="60px"/><b>-->
+            <#--b><img src="/images/${images.get(true)}" height="60px"/><b>-->
             <#--поместить Превьюшную фотку каждого продукта на начальную страницу!!!-->
             <br>${product.price} rub | <a href="/product/${product.id}">Details ></a></p>
     </div>
