@@ -15,13 +15,14 @@
     </form>
     <br>
     <#if user.isAdmin()>
-        <a href="/admin">Admin panel</a><hr>
+        <a href="/admin">Admin panel</a>
+        <hr>
     </#if>
 <#else>
-<form action="/login" method="post">
-    <input type="hidden" name="_csrf" value="${_csrf.token}">
-    <input type="submit" value="Enter"/>
-</form>
+    <form action="/login" method="post">
+        <input type="hidden" name="_csrf" value="${_csrf.token}">
+        <input type="submit" value="Enter"/>
+    </form>
 </#if>
 <hr>
 <h3>Products from all country</h3>
@@ -33,8 +34,6 @@
 <#list products as product>
     <div>
         <p><b>${product.title}</b>
-            <#--b><img src="/images/${images.get(true)}" height="60px"/><b>-->
-            <#--поместить Превьюшную фотку каждого продукта на начальную страницу!!!-->
             <br>${product.price} rub | <a href="/product/${product.id}">Details ></a></p>
     </div>
 <#else>

@@ -79,7 +79,7 @@ public class ProductService implements ProductServiceInterface {
     }
 
     @Override
-    public void deleteProduct(Long id) {  //удаление
+    public void deleteProductById(Long id) {  //удаление
         productRepository.deleteById(id);
     }
 
