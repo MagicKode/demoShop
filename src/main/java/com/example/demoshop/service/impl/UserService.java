@@ -53,8 +53,10 @@ public class UserService implements UserServiceInterface {
                 log.info("UnBan user with id = {}, login = {}", user.getId(), user.getLogin());
             }
         }
+        assert user != null;
         userRepository.save(user);
     }
+
 
     @Override
     public void changeUserRoles(User user, Map<String, String> form) {
@@ -62,11 +64,23 @@ public class UserService implements UserServiceInterface {
                 .map(Role::name)
                 .collect(Collectors.toSet());
         user.getRoles().clear();
-        for (String key : form.keySet()){
-            if (role.contains(key)){
+        for (String key : form.keySet()) {
+            if (role.contains(key)) {
                 user.getRoles().add(Role.valueOf(key));
             }
         }
         userRepository.save(user);
+    }
+
+
+    @Override
+    public String deleteUserById(Long id) {
+        userRepository.deleteById(id);
+        return "{'message' : 'User successfully deleted'}";
+    }
+
+    @Override
+    public User getUserByName(String name){
+        return userRepository.findByName(name);
     }
 }

@@ -2,6 +2,7 @@ package com.example.demoshop.controller;
 
 import com.example.demoshop.model.Product;
 import com.example.demoshop.service.impl.ProductService;
+import com.example.demoshop.service.impl.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +20,7 @@ import java.security.Principal;
 public class ProductController {
 
     private final ProductService productService;
+    private final UserService userService;
 
     @GetMapping("/product/create")  //переход на страницу для создания продукта
     public String productCreation() {

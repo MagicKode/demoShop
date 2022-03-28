@@ -21,7 +21,6 @@ import java.util.List;
 public class ProductService implements ProductServiceInterface {
 
     private final ProductRepository productRepository;
-    private final UserRepository userRepository;
 
 
     @Override
@@ -29,6 +28,7 @@ public class ProductService implements ProductServiceInterface {
         if (title != null) return productRepository.findByTitle(title);
         return productRepository.findAll();
     }
+
 
     @Override
     public void saveProduct(MultipartFile file1, MultipartFile file2, MultipartFile file3,
@@ -38,20 +38,20 @@ public class ProductService implements ProductServiceInterface {
         Image image2;
         Image image3;
         Image image4;
-        if (file1.getSize() != 0){
+        if (file1.getSize() != 0) {
             image1 = toImageEntity(file1);
             image1.setPreviewImage(true);
             product.addImageToProduct(image1);
         }
-        if (file2.getSize() != 0){
+        if (file2.getSize() != 0) {
             image2 = toImageEntity(file2);
             product.addImageToProduct(image2);
         }
-        if (file3.getSize() != 0){
+        if (file3.getSize() != 0) {
             image3 = toImageEntity(file3);
             product.addImageToProduct(image3);
         }
-        if (file4.getSize() != 0){
+        if (file4.getSize() != 0) {
             image4 = toImageEntity(file4);
             product.addImageToProduct(image4);
         }
@@ -60,12 +60,6 @@ public class ProductService implements ProductServiceInterface {
         Product productFromDB = productRepository.save(product); //присваиваем фотографию конкретному продукту
         productFromDB.setPreviewImageId(productFromDB.getImages().get(0).getId()); //получаем по 0му инлексу Первое фото, устанавливаем ему индекс 1 для сохранения в БД
         productRepository.save(product); // обновляем репозиторий,(добавляем продукт уже С ФОТО)
-    }
-
-    @Override
-    public User getUserByPrincipal(Principal principal) {
-        if(principal == null) return new User();  // ноый Юзер, т.к. новому Юзеру НЕ БУДЕТ показана формочка Удаления товара
-        return userRepository.findByLogin(principal.getName());
     }
 
     private Image toImageEntity(MultipartFile file) throws IOException {
@@ -87,4 +81,13 @@ public class ProductService implements ProductServiceInterface {
     public Product getProductById(Long id) { //достаём продукт по id
         return productRepository.findById(id).orElse(null); //если товара с таким id  не найдено,ю то вернёт NULL
     }
+
+    @Override
+    public User getUserByPrincipal(Principal principal) {
+        if (principal == null) {
+            return new User();  // ноый Юзер, т.к. новому Юзеру НЕ БУДЕТ показана формочка Удаления товара
+        }
+        return null;
+    }
+
 }

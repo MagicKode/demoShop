@@ -21,6 +21,7 @@
         <th>Ban</th>
         <th>Editing</th>
         <th>Detail info</th>
+        <th>Delete user</th>
     </tr>
 
 <#list user as users>
@@ -37,6 +38,7 @@
         </th>
         <th><a href="admin/user/edit/${users.id}">Editing</a></th>
         <th><a href="/user/${users.id}">Detail info</a></th>
+        <th><a href="admin/user/delete/${users.id}">Delete user</a></th>
     </tr>
 <#else>
     <h3>No users...</h3>

@@ -20,5 +20,4 @@ public interface ProductServiceInterface {
     Product getProductById(Long id);
 
     User getUserByPrincipal(Principal principal);
-
 }
