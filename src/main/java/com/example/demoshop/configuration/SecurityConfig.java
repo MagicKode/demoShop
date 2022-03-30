@@ -1,6 +1,6 @@
 package com.example.demoshop.configuration;
 
-import com.example.demoshop.service.impl.CustomUserDetailService;
+import com.example.demoshop.service.CustomUserDetailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;

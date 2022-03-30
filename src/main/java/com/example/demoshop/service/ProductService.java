@@ -1,11 +1,11 @@
-package com.example.demoshop.service.impl;
+package com.example.demoshop.service;
 
 import com.example.demoshop.model.Image;
 import com.example.demoshop.model.Product;
 import com.example.demoshop.model.User;
 import com.example.demoshop.repository.ProductRepository;
 import com.example.demoshop.repository.UserRepository;
-import com.example.demoshop.service.ProductServiceInterface;
+import com.example.demoshop.service.impl.ProductServiceInterface;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

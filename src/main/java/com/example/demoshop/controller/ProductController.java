@@ -1,7 +1,8 @@
 package com.example.demoshop.controller;
 
 import com.example.demoshop.model.Product;
-import com.example.demoshop.service.impl.ProductService;
+import com.example.demoshop.service.ProductService;
+import com.example.demoshop.service.impl.UserService;
 import com.example.demoshop.service.impl.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -50,9 +51,9 @@ public class ProductController {
         return "redirect:/";
     }
 
-    @PostMapping("/product/delete/{id}")
+   /* @PostMapping("/product/delete/{id}")
     public String deleteProductById(@PathVariable Long id) {
         productService.deleteProduct(id);
         return "redirect:/";
-    }
+    }*/
 }
