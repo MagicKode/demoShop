@@ -21,6 +21,7 @@ import java.util.List;
 public class ProductService implements ProductServiceInterface {
 
     private final ProductRepository productRepository;
+    private final UserRepository userRepository;
 
 
     @Override
@@ -86,8 +87,8 @@ public class ProductService implements ProductServiceInterface {
     public User getUserByPrincipal(Principal principal) {
         if (principal == null) {
             return new User();  // ноый Юзер, т.к. новому Юзеру НЕ БУДЕТ показана формочка Удаления товара
+        } else {
+            return userRepository.findByLogin(principal.getName());
         }
-        return null;
     }
-
 }

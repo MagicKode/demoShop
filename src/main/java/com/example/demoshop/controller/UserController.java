@@ -1,7 +1,7 @@
 package com.example.demoshop.controller;
 
 import com.example.demoshop.model.User;
-import com.example.demoshop.service.impl.UserService;
+import com.example.demoshop.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,5 +41,4 @@ public class UserController {
         model.addAttribute("products", user.getProducts());
         return "user-info";
     }
-
 }

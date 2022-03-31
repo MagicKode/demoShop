@@ -1,4 +1,4 @@
-package com.example.demoshop.service;
+package com.example.demoshop.service.impl;
 
 import com.example.demoshop.model.User;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,7 +20,5 @@ public interface UserServiceInterface {
     String deleteUserById(Long id);
 
     User getUserByName(String name);
-
-    //User getUserByPrincipal(Principal principal);
 
 }

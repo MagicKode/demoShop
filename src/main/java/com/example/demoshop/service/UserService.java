@@ -1,9 +1,9 @@
-package com.example.demoshop.service.impl;
+package com.example.demoshop.service;
 
 import com.example.demoshop.model.User;
 import com.example.demoshop.model.enums.Role;
 import com.example.demoshop.repository.UserRepository;
-import com.example.demoshop.service.UserServiceInterface;
+import com.example.demoshop.service.impl.UserServiceInterface;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,13 +25,15 @@ public class UserService implements UserServiceInterface {
     @Override
     public boolean createUser(User user) {
         String login = user.getLogin();
-        if (userRepository.findByLogin(user.getLogin()) != null)
+        if (userRepository.findByLogin(user.getLogin()) != null) {
             return false;
-        user.setActive(true);
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.getRoles().add(Role.ROLE_USER);
-        log.info("Saving new User with login: {}", login);
-        userRepository.save(user);
+        } else {
+            user.setActive(true);
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.getRoles().add(Role.ROLE_USER);
+            log.info("Saving new User with login: {}", login);
+            userRepository.save(user);
+        }
         return true;
     }
 
@@ -80,7 +82,7 @@ public class UserService implements UserServiceInterface {
     }
 
     @Override
-    public User getUserByName(String name){
+    public User getUserByName(String name) {
         return userRepository.findByName(name);
     }
 }

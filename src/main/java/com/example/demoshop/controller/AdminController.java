@@ -2,7 +2,7 @@ package com.example.demoshop.controller;
 
 import com.example.demoshop.model.User;
 import com.example.demoshop.model.enums.Role;
-import com.example.demoshop.service.impl.UserService;
+import com.example.demoshop.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;

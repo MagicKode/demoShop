@@ -2,8 +2,7 @@ package com.example.demoshop.controller;
 
 import com.example.demoshop.model.Product;
 import com.example.demoshop.service.ProductService;
-import com.example.demoshop.service.impl.UserService;
-import com.example.demoshop.service.impl.UserService;
+import com.example.demoshop.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +20,6 @@ import java.security.Principal;
 public class ProductController {
 
     private final ProductService productService;
-    private final UserService userService;
 
     @GetMapping("/product/create")  //переход на страницу для создания продукта
     public String productCreation() {
@@ -51,7 +49,7 @@ public class ProductController {
         return "redirect:/";
     }
 
-   /* @PostMapping("/product/delete/{id}")
+    /*@PostMapping("/product/delete/{id}")
     public String deleteProductById(@PathVariable Long id) {
         productService.deleteProduct(id);
         return "redirect:/";
