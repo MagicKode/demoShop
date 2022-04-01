@@ -39,20 +39,21 @@ public class ProductService implements ProductServiceInterface {
         Image image2;
         Image image3;
         Image image4;
-        if (file1.getSize() != 0) {
+
+        if (file1 != null && file1.getSize() != 0) {
             image1 = toImageEntity(file1);
             image1.setPreviewImage(true);
             product.addImageToProduct(image1);
         }
-        if (file2.getSize() != 0) {
+        if (file2 != null && file2.getSize() != 0) {
             image2 = toImageEntity(file2);
             product.addImageToProduct(image2);
         }
-        if (file3.getSize() != 0) {
+        if (file3 != null && file3.getSize() != 0) {
             image3 = toImageEntity(file3);
             product.addImageToProduct(image3);
         }
-        if (file4.getSize() != 0) {
+        if (file4 != null && file4.getSize() != 0) {
             image4 = toImageEntity(file4);
             product.addImageToProduct(image4);
         }
