@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -40,6 +41,7 @@ public class UserService implements UserServiceInterface {
 
     @Override
     public List<User> getAllUsers() {
+        log.info("Found all users");
         return userRepository.findAll();
     }
 
@@ -54,9 +56,8 @@ public class UserService implements UserServiceInterface {
                 user.setActive(true);
                 log.info("UnBan user with id = {}, login = {}", user.getId(), user.getLogin());
             }
+            userRepository.save(user);
         }
-        assert user != null;
-        userRepository.save(user);
     }
 
 
@@ -66,7 +67,7 @@ public class UserService implements UserServiceInterface {
                 .map(Role::name)
                 .collect(Collectors.toSet());
         user.getRoles().clear();
-        for (String key : form.keySet()) {
+        for (String key : form.keySet()) {  // сдулфть stream вместо циклов
             if (role.contains(key)) {
                 user.getRoles().add(Role.valueOf(key));
             }
@@ -84,5 +85,11 @@ public class UserService implements UserServiceInterface {
     @Override
     public User getUserByName(String name) {
         return userRepository.findByName(name);
+    }
+
+    @Override
+    public User getUserById(Long id) {
+        log.info("Got user with id = {}", id);
+        return userRepository.getById(id);
     }
 }

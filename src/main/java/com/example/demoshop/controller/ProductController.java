@@ -2,7 +2,6 @@ package com.example.demoshop.controller;
 
 import com.example.demoshop.model.Product;
 import com.example.demoshop.service.ProductService;
-import com.example.demoshop.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,10 +47,4 @@ public class ProductController {
         productService.saveProduct(file1, file2, file3, file4, principal, product);
         return "redirect:/";
     }
-
-    /*@PostMapping("/product/delete/{id}")
-    public String deleteProductById(@PathVariable Long id) {
-        productService.deleteProduct(id);
-        return "redirect:/";
-    }*/
 }

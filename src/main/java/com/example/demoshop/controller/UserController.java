@@ -36,9 +36,10 @@ public class UserController {
     }
 
     @GetMapping("/user/{user}") // запрос на Инфу о юзере соответствующего продукта
-    public String userInfo(@PathVariable("user") User user, Model model){
+    public String userInfo(@PathVariable("user") User user, Model model) {
         model.addAttribute("user", user);
         model.addAttribute("products", user.getProducts());
         return "user-info";
     }
 }
+
