@@ -72,7 +72,7 @@ class UserServiceTest {
 
         //then
         assertNotNull(getAllUsers);
-        }
+    }
 
     @Test
     void shouldFindUserById() {
@@ -84,7 +84,7 @@ class UserServiceTest {
         userService.getUserById(id);
 
         //then
-        //assertEquals("1L",)
+        assertEquals(1L, id);
 
         verify(userRepository, Mockito.times(1)).getById(id);
     }
@@ -108,7 +108,7 @@ class UserServiceTest {
     }
 
 
-   /* @Test
+    /*@Test
     void shouldChangeUserRoles() {
         //given
         when(userRepository.getById())
@@ -147,7 +147,6 @@ class UserServiceTest {
         userService.deleteUserById(id);
 
         //then
-        assertTrue();
         verify(userRepository, times(1)).deleteById(id);
     }
 }
