@@ -35,10 +35,9 @@ public class CustomUserDetailServiceTest {
         //given
         User user = new User();
         String login = "login";
-        String name = "name";
+        user.setLogin(login);
 
         when(userRepository.findByLogin(user.getLogin())).thenReturn(user);
-
 
         //when
         testSubject.loadUserByUsername(login);
