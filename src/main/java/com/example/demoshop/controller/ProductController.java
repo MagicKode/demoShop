@@ -47,4 +47,10 @@ public class ProductController {
         productService.saveProduct(file1, file2, file3, file4, principal, product);
         return "redirect:/";
     }
+
+    @PostMapping("/product/delete/{id}")
+    public String deleteProductById(@PathVariable Long id){
+        productService.deleteProductById(id);
+        return "redirect:/";
+    }
 }

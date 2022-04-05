@@ -40,6 +40,7 @@ public class ProductService implements ProductServiceInterface {
         Image image3;
         Image image4;
 
+
         if (file1 != null && file1.getSize() != 0) {
             image1 = toImageEntity(file1);
             image1.setPreviewImage(true);
@@ -58,7 +59,7 @@ public class ProductService implements ProductServiceInterface {
             product.addImageToProduct(image4);
         }
 
-        log.info("Saving new Product. Title: {}; Author login: {}", product.getTitle(), product.getUser().getLogin()/*getAuthor()*/);
+        log.info("Saving new Product. Title: {}; Author login: {}", product.getTitle(), product.getUser().getLogin());
         Product productFromDB = productRepository.save(product); //присваиваем фотографию конкретному продукту
         productFromDB.setPreviewImageId(productFromDB.getImages().get(0).getId()); //получаем по 0му инлексу Первое фото, устанавливаем ему индекс 1 для сохранения в БД
         productRepository.save(product); // обновляем репозиторий,(добавляем продукт уже С ФОТО)

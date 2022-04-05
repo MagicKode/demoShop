@@ -1,8 +1,10 @@
 package com.example.service;
 
 import com.example.demoshop.model.User;
+import com.example.demoshop.model.enums.Role;
 import com.example.demoshop.repository.UserRepository;
 import com.example.demoshop.service.UserService;
+import org.apache.struts.mock.MockPrincipal;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,7 +15,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 
-import java.util.List;
+import java.security.Principal;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -28,7 +32,7 @@ class UserServiceTest {
     PasswordEncoder passwordEncoder;
 
     @InjectMocks
-    private UserService userService;
+    private UserService testSubject;
 
     User user;
 
@@ -52,7 +56,7 @@ class UserServiceTest {
         when(userRepository.save(user)).thenReturn(null);
 
         //when
-        boolean result = userService.createUser(this.user);
+        boolean result = testSubject.createUser(this.user);
 
         //then
         assertNotNull(this.user);
@@ -68,7 +72,7 @@ class UserServiceTest {
         when(userRepository.findAll()).thenReturn(List.of(user));
 
         //when
-        List<User> getAllUsers = userService.getAllUsers();
+        List<User> getAllUsers = testSubject.getAllUsers();
 
         //then
         assertNotNull(getAllUsers);
@@ -77,11 +81,13 @@ class UserServiceTest {
     @Test
     void shouldFindUserById() {
         //given
+        User user = new User();
         Long id = 1L;
-        when(userRepository.getById(id)).thenReturn(null);
+        user.setId(id);
+        when(userRepository.getById(id)).thenReturn(user);
 
         //when
-        userService.getUserById(id);
+        testSubject.getUserById(id);
 
         //then
         assertEquals(1L, id);
@@ -94,59 +100,140 @@ class UserServiceTest {
     void shouldUserBan() {
         //given
         User user = new User();
-        user.setActive(true);
         Long id = 1L;
-        when(userRepository.getById(id)).thenReturn(this.user);
+        user.setId(id);
+        user.setActive(false);
+
+        when(userRepository.findById(id)).thenReturn(Optional.of(user));
+        //user.setActive(false);
+//        when(userRepository.save(user)).thenReturn(user);
 
         //when
-        userService.userBan(id);
+//        testSubject.getUserById(id);
+        testSubject.userBan(id);
 
         //then
+        assertNotNull(user);
+        assertEquals(1L, id);
         assertTrue(user.isActive());
 
-        verify(userRepository, Mockito.times(1)).getById(id);
+
+        verify(userRepository, times(1)).save(user);
+        verify(userRepository, times(1)).findById(id);
+    }
+
+    @Test
+    void shouldUserReBan() {
+        //given
+        User user = new User();
+        Long id = 1L;
+        user.setId(id);
+        user.setActive(true);
+
+        when(userRepository.findById(id)).thenReturn(Optional.of(user));
+
+        //when
+        testSubject.userBan(id);
+
+        //then
+        assertNotNull(user);
+        assertEquals(1L, id);
+        assertFalse(user.isActive());
+
+
+        verify(userRepository, times(1)).save(user);
+        verify(userRepository, times(1)).findById(id);
+    }
+
+    @Test
+    void shouldUserBanNoUser() {
+        //given
+        User user = new User();
+        Long id = null;
+        user.setId(id);
+        user.setActive(false);
+
+        when(userRepository.findById(user.getId())).thenReturn(Optional.of(user));
+
+        //when
+        testSubject.userBan(user.getId());
+
+        //then
+        assertNotNull(user);
+        assertNull(user.getId());
+        assertTrue(user.isActive());
+
+
+        verify(userRepository, times(1)).save(user);
+        verify(userRepository, times(1)).findById(user.getId());
     }
 
 
-    /*@Test
+
+    @Test
     void shouldChangeUserRoles() {
         //given
-        when(userRepository.getById())
+        User user = new User();
 
-        Map<String, String> form;
+        Map<String, String> form = new HashMap<>();
+        //form.put()
+
         Set<String> role = Arrays.stream(Role.values())
                 .map(Role::name)
                 .collect(Collectors.toSet());
-        //when
         user.getRoles().clear();
+        String key = String.valueOf(form.keySet());
+        //when
+
+        //boolean result = user.getRoles().add(Role.valueOf(key));
 
         //then
-
-    }*/
+        //assertTrue(result);
+    }
 
     @Test
     void shouldGetUserByName() {
         //given
         User user = new User();
-        user.setName("Name");
+        String name = "name";
+        user.setName(name);
+        when(userRepository.findByName(user.getName())).thenReturn(user);
 
         //when
-        userRepository.findByName(user.getName());
+        testSubject.getUserByName(user.getName());
 
         //then
-        userService.getUserByName(user.getName());
-        assertEquals("Name", user.getName());
+        assertEquals("name", user.getName());
+        verify(userRepository, times(1)).findByName(name);
     }
 
     @Test
     void shouldDeleteUserById() {
         //given
+        User user = new User();
         Long id = 1L;
+        user.setId(id);
 
         //when
-        userService.deleteUserById(id);
+        testSubject.deleteUserById(id);
 
         //then
         verify(userRepository, times(1)).deleteById(id);
     }
+
+    @Test
+    void shouldGetUserByLogin() {
+        //given
+        User user = new User();
+        user.setLogin("login");
+
+        //when
+        userRepository.findByLogin(user.getLogin());
+
+        //then
+        testSubject.getUserByLogin(user.getLogin());
+        assertEquals("login", user.getLogin());
+    }
+
+
 }
