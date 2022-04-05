@@ -4,7 +4,6 @@ import com.example.demoshop.model.User;
 import com.example.demoshop.model.enums.Role;
 import com.example.demoshop.repository.UserRepository;
 import com.example.demoshop.service.UserService;
-import org.apache.struts.mock.MockPrincipal;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,10 +14,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 
-import java.security.Principal;
 import java.util.*;
-import java.util.stream.Collectors;
 
+import static com.example.demoshop.model.enums.Role.ROLE_ADMIN;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -66,17 +64,22 @@ class UserServiceTest {
         verify(userRepository, Mockito.times(1)).save(user);
     }
 
+
     @Test
     void shouldGetAllUsers() {
         //Given
-        when(userRepository.findAll()).thenReturn(List.of(user));
+        List<User> users = new ArrayList<>();
+        when(userRepository.findAll()).thenReturn(users);
 
         //when
         List<User> getAllUsers = testSubject.getAllUsers();
 
         //then
         assertNotNull(getAllUsers);
+
+        verify(userRepository, times(1)).findAll();
     }
+
 
     @Test
     void shouldFindUserById() {
@@ -97,7 +100,7 @@ class UserServiceTest {
 
 
     @Test
-    void shouldUserBan() {
+    void shouldUserBan_WhenTrueThenFalse() {
         //given
         User user = new User();
         Long id = 1L;
@@ -105,11 +108,8 @@ class UserServiceTest {
         user.setActive(false);
 
         when(userRepository.findById(id)).thenReturn(Optional.of(user));
-        //user.setActive(false);
-//        when(userRepository.save(user)).thenReturn(user);
 
         //when
-//        testSubject.getUserById(id);
         testSubject.userBan(id);
 
         //then
@@ -122,8 +122,9 @@ class UserServiceTest {
         verify(userRepository, times(1)).findById(id);
     }
 
+
     @Test
-    void shouldUserReBan() {
+    void shouldUserBan_WhenFalse_ThenTrue() {
         //given
         User user = new User();
         Long id = 1L;
@@ -145,8 +146,9 @@ class UserServiceTest {
         verify(userRepository, times(1)).findById(id);
     }
 
+
     @Test
-    void shouldUserBanNoUser() {
+    void shouldUserBan_WhenNoUser() {
         //given
         User user = new User();
         Long id = null;
@@ -169,27 +171,28 @@ class UserServiceTest {
     }
 
 
-
     @Test
     void shouldChangeUserRoles() {
         //given
         User user = new User();
-
+        String name = "name";
+        user.setName(name);
+        Role role = ROLE_ADMIN;
         Map<String, String> form = new HashMap<>();
-        //form.put()
+        form.put(name, role.name());
 
-        Set<String> role = Arrays.stream(Role.values())
-                .map(Role::name)
-                .collect(Collectors.toSet());
-        user.getRoles().clear();
-        String key = String.valueOf(form.keySet());
+        when(userRepository.save(user)).thenReturn(user);
+
         //when
-
-        //boolean result = user.getRoles().add(Role.valueOf(key));
+        boolean result = user.getRoles().add(role);
+        testSubject.changeUserRoles(user,form);
 
         //then
-        //assertTrue(result);
+        assertTrue(result);
+
+        verify(userRepository, times(1)).save(user);
     }
+
 
     @Test
     void shouldGetUserByName() {
@@ -197,15 +200,18 @@ class UserServiceTest {
         User user = new User();
         String name = "name";
         user.setName(name);
-        when(userRepository.findByName(user.getName())).thenReturn(user);
+        when(userRepository.findByName(name)).thenReturn(user);
 
         //when
         testSubject.getUserByName(user.getName());
 
         //then
         assertEquals("name", user.getName());
+        assertNotNull(user);
+
         verify(userRepository, times(1)).findByName(name);
     }
+
 
     @Test
     void shouldDeleteUserById() {
@@ -221,19 +227,21 @@ class UserServiceTest {
         verify(userRepository, times(1)).deleteById(id);
     }
 
+
     @Test
     void shouldGetUserByLogin() {
         //given
         User user = new User();
-        user.setLogin("login");
+        String login = "login";
+        user.setLogin(login);
+        when(userRepository.findByLogin(login)).thenReturn(user);
 
         //when
-        userRepository.findByLogin(user.getLogin());
+        testSubject.getUserByLogin(login);
 
         //then
-        testSubject.getUserByLogin(user.getLogin());
         assertEquals("login", user.getLogin());
+
+        verify(userRepository, times(1)).findByLogin(login);
     }
-
-
 }
