@@ -9,12 +9,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.security.Principal;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
+
 
 @Service
 @Slf4j
@@ -45,6 +42,7 @@ public class UserService implements UserServiceInterface {
         return userRepository.findAll();
     }
 
+
     @Override
     public void userBan(Long id) {   //меняем активность юзера Баним по id
         User user = userRepository.findById(id).orElse(null);
@@ -62,16 +60,15 @@ public class UserService implements UserServiceInterface {
 
 
     @Override
-    public void changeUserRoles(User user, Map<String, String> form) {
+    public void changeUserRoles(User user, Map<String, String> form) { //вместо Map поставить Set
         Set<String> role = Arrays.stream(Role.values())
                 .map(Role::name)
                 .collect(Collectors.toSet());
         user.getRoles().clear();
-        for (String key : form.keySet()) {  // сдулфть stream вместо циклов
-            if (role.contains(key)) {
-                user.getRoles().add(Role.valueOf(key));
-            }
-        }
+
+        form.keySet().stream()
+                .filter(role::contains)                     //чем лучше или хуже этот метод от lambda
+                .forEach(key -> user.getRoles().add(Role.valueOf(key)));
         userRepository.save(user);
     }
 
@@ -82,14 +79,23 @@ public class UserService implements UserServiceInterface {
         return "{'message' : 'User successfully deleted'}";
     }
 
+
     @Override
     public User getUserByName(String name) {
         return userRepository.findByName(name);
     }
 
+
     @Override
     public User getUserById(Long id) {
         log.info("Got user with id = {}", id);
         return userRepository.getById(id);
+    }
+
+
+    @Override
+    public User getUserByLogin(String login) {
+        log.info("Found user with login = {}", login);
+        return userRepository.findByLogin(login);
     }
 }

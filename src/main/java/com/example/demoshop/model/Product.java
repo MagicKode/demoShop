@@ -1,6 +1,6 @@
 package com.example.demoshop.model;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -9,7 +9,10 @@ import java.util.List;
 
 @Entity
 @Table(name = "product")
-@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class Product {
 
     @Id
@@ -42,8 +45,9 @@ public class Product {
         dateOfCreate = LocalDateTime.now();
     }
 
-    public void addImageToProduct(Image image){
+    public boolean addImageToProduct(Image image){
         image.setProduct(this);
         images.add(image);
+        return true;
     }
 }
