@@ -82,6 +82,7 @@ public class UserService implements UserServiceInterface {
 
     @Override
     public User getUserByName(String name) {
+        log.info("Found user with = {}", name);
         return userRepository.findByName(name);
     }
 

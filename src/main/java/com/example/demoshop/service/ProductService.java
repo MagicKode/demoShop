@@ -27,6 +27,7 @@ public class ProductService implements ProductServiceInterface {
     @Override
     public List<Product> getProductsByTitle(String title) { //достайм все продукты ПО НАЗВАНИЮ изи резитория
         if (title != null) return productRepository.findByTitle(title);
+        log.info("Got product with title = {}", title);
         return productRepository.findAll();
     }
 
@@ -77,11 +78,13 @@ public class ProductService implements ProductServiceInterface {
 
     @Override
     public void deleteProductById(Long id) {  //удаление
+        log.info("Deleted product with id = {}", id);
         productRepository.deleteById(id);
     }
 
     @Override
     public Product getProductById(Long id) { //достаём продукт по id
+        log.info("Got product with id = {}", id);
         return productRepository.findById(id).orElse(null); //если товара с таким id  не найдено,ю то вернёт NULL
     }
 

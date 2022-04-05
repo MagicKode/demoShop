@@ -16,12 +16,12 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.security.core.parameters.P;
 
 import java.io.IOException;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -149,12 +149,13 @@ class ProductServiceTest {
         Product product = new Product();
         Long id = 1L;
         product.setId(id);
-        when(productRepository.getById(id)).thenReturn(product);
+        when(productRepository.findById(id)).thenReturn(Optional.of(product));
 
         //when
         testSubject.getProductById(product.getId());
 
         //then
+        assertNotNull(product);
         assertEquals(1L, product.getId());
 
         verify(productRepository, Mockito.times(1)).findById(product.getId());
@@ -168,21 +169,16 @@ class ProductServiceTest {
         String login = "login";
         user.setLogin(login);
         Principal principal = new MockPrincipal();
-        /*String name = "login";
-        principal.(name);*/
 
-        when(userRepository.findByLogin(login)).thenReturn(user);
-
+        when(userRepository.findByLogin(principal.getName())).thenReturn(user);
 
         //when
         testSubject.getUserByPrincipal(principal);
 
         //then
-        assertNotNull(this.user);
+        assertNotNull(user);
         assertEquals("login", login);
 
-        verify(userRepository, times(1)).findByLogin(login);
-        // verify(testSubject, times(1)).getUserByPrincipal(principal);
-
+        verify(userRepository, times(1)).findByLogin(principal.getName());
     }
 }
