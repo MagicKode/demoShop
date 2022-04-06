@@ -29,7 +29,7 @@ public class Product {
     @Column(name = "city")
     private String city;
     @Column(name = "manufacturer")
-    private String manufacturer; // нужно делать SELECT!!
+    private String manufacturer;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "product")
     private List<Image> images = new ArrayList<>();

@@ -21,9 +21,9 @@ public class Image {
     private String imgName;
     @Column(name = "img_originalFileName")
     private String originalFileName; //параметр для передачи фотографий
-    @Column(name = "img_siza")
+    @Column(name = "img_siza")//размер файла
     private Long size;
-    @Column(name = "img_Type")//размер файла
+    @Column(name = "img_Type")
     private String contentType;     //расширение файла
     @Column(name = "img_isPreview")
     private boolean isPreviewImage;  //"Флажёк" - что фото является НАЧАЛЬНЫМ основным
