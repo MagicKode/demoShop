@@ -16,7 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final CustomUserDetailService customUserDetailsService;
+    private final CustomUserDetailService customUserDetailService;
 
     @Override //какие url будут доступны, а какие нет
     protected void configure(HttpSecurity http) throws Exception {
@@ -37,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override  //интегрируем КАК БУДЕМ АВТОРИЗОВЫВАТЬСЯ
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(customUserDetailsService)
+        auth.userDetailsService(customUserDetailService)
                 .passwordEncoder(passwordEncoder()); // шифрование пароля
     }
 
