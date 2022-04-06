@@ -9,6 +9,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
@@ -27,18 +28,17 @@ public class CustomUserDetailServiceTest {
     @BeforeEach
     void init(){
         user = new User();
-        user.setName("name");
+        user.setLogin("login");
     }
 
+
     @Test
-    void shouldLoadUserByUsername(){
+    void shouldLoadUserByUsername() {
         //given
         User user = new User();
         String login = "login";
-        String name = "name";
-
+        user.setLogin(login);
         when(userRepository.findByLogin(user.getLogin())).thenReturn(user);
-
 
         //when
         testSubject.loadUserByUsername(login);

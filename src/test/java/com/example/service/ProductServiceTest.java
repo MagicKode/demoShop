@@ -132,14 +132,13 @@ class ProductServiceTest {
         Product product = new Product();
         Long id = 1L;
         product.setId(id);
-        productRepository.deleteById(id);
 
         //when
         testSubject.deleteProductById(id);
 
         //then
 
-        verify(productRepository, times(2)).deleteById(id);
+        verify(productRepository, times(1)).deleteById(id);
     }
 
 
