@@ -100,7 +100,7 @@ class UserServiceTest {
 
 
     @Test
-    void shouldUserBan_WhenTrueThenFalse() {
+    void shouldUserBan() {
         //given
         User user = new User();
         Long id = 1L;
@@ -124,7 +124,7 @@ class UserServiceTest {
 
 
     @Test
-    void shouldUserBan_WhenFalse_ThenTrue() {
+    void shouldUserUnBan() {
         //given
         User user = new User();
         Long id = 1L;
@@ -148,7 +148,7 @@ class UserServiceTest {
 
 
     @Test
-    void shouldUserBan_WhenNoUser() {
+    void shouldBan_WhenNoUser() {
         //given
         User user = new User();
         Long id = null;
