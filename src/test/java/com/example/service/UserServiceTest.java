@@ -38,7 +38,6 @@ class UserServiceTest {
     void init() {
         user = new User();
         user.setName("Name");
-        user.setEmail("a@b");
         user.setActive(true);
         user.setPhoneNumber("123456");
         user.setLogin("login");
